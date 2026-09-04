@@ -1,0 +1,4 @@
+# This plugin is LF everywhere: it gets copied into a Linux container for
+# testing, dev/redeploy.sh rewrites package.json with LF endings, and bash
+# refuses to run the dev scripts if they arrive with CRLF.
+* text=auto eol=lf

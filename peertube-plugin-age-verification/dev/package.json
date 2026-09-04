@@ -1,0 +1,9 @@
+{
+  "name": "peertube-plugin-age-verification-dev",
+  "private": true,
+  "description": "Local development tooling for the plugin. Never published; excluded via .npmignore.",
+  "type": "module",
+  "devDependencies": {
+    "jsdom": "^30.0.1"
+  }
+}

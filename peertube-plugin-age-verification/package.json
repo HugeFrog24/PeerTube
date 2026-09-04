@@ -1,0 +1,37 @@
+{
+  "name": "peertube-plugin-age-verification",
+  "version": "1.0.0",
+  "description": "Age verification popup for new visitors using PeerTube's built-in styling and storage",
+  "engine": {
+    "peertube": ">=5.0.0"
+  },
+  "keywords": [
+    "peertube",
+    "plugin",
+    "age-verification",
+    "popup",
+    "nsfw",
+    "content-warning"
+  ],
+  "homepage": "https://github.com/peertube/peertube-plugin-age-verification",
+  "author": "PeerTube Community",
+  "bugs": "https://github.com/peertube/peertube-plugin-age-verification/issues",
+  "license": "AGPL-3.0",
+  "library": "./main.js",
+  "staticDirs": {},
+  "css": [],
+  "clientScripts": [
+    {
+      "script": "age-verification-client.js",
+      "scopes": [
+        "common"
+      ]
+    }
+  ],
+  "translations": {
+    "en": "./languages/en.json",
+    "fr": "./languages/fr.json",
+    "es": "./languages/es.json",
+    "de": "./languages/de.json"
+  }
+}

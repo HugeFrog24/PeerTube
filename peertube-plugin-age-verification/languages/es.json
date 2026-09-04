@@ -1,0 +1,8 @@
+{
+  "Age Verification Required": "Verificación de edad requerida",
+  "Please confirm your age to continue.": "Por favor confirma tu edad para continuar.",
+  "No, I am under {age}": "No, soy menor de {age} años",
+  "Yes, I am {age} or older": "Sí, tengo {age} años o más",
+  "Age verification completed. Welcome!": "Verificación de edad completada. ¡Bienvenido!",
+  "This website contains age-restricted content. You must be {age} years or older to access this content.": "Este sitio web contiene contenido restringido por edad. Debes tener {age} años o más para acceder a este contenido."
+}

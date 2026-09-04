@@ -1,0 +1,8 @@
+{
+  "Age Verification Required": "Age Verification Required",
+  "Please confirm your age to continue.": "Please confirm your age to continue.",
+  "No, I am under {age}": "No, I am under {age}",
+  "Yes, I am {age} or older": "Yes, I am {age} or older",
+  "Age verification completed. Welcome!": "Age verification completed. Welcome!",
+  "This website contains age-restricted content. You must be {age} years or older to access this content.": "This website contains age-restricted content. You must be {age} years or older to access this content."
+}

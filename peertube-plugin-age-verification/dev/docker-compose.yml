@@ -1,0 +1,73 @@
+# Throwaway local PeerTube instance for developing this plugin.
+#
+#   cd dev && docker compose up -d      # http://localhost:9000, root / test
+#   ./redeploy.sh                       # copies the plugin in + (re)installs it
+#   docker compose down -v              # wipe everything
+#
+# Everything lives in named volumes, so no PostgreSQL/Redis/PeerTube install is
+# needed on the host, and nothing here touches a real instance.
+#
+# Browse http://localhost:9000, NOT http://127.0.0.1:9000 -- PeerTube refuses
+# OAuth for a host that does not match webserver.hostname below.
+
+name: peertube-plugin-age-verification-dev
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: peertube
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      retries: 20
+
+  redis:
+    image: redis:8-alpine
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      retries: 20
+
+  peertube:
+    image: chocobozzz/peertube:production
+    ports:
+      - "9000:9000"
+    environment:
+      # The image already ships support/docker/production/config on its
+      # NODE_CONFIG_DIR, which points database.hostname -> postgres (user and
+      # password postgres, empty suffix) and redis.hostname -> redis, so the
+      # service names above are all the wiring that is needed.
+      PEERTUBE_WEBSERVER_HOSTNAME: localhost
+      PEERTUBE_WEBSERVER_PORT: 9000
+      PEERTUBE_WEBSERVER_HTTPS: "false"
+      PEERTUBE_SECRET: 0000000000000000000000000000000000000000000000000000000000000000
+      PEERTUBE_ADMIN_EMAIL: admin@localhost.test
+      PT_INITIAL_ROOT_PASSWORD: test
+      PEERTUBE_SMTP_HOSTNAME: ""
+    volumes:
+      - data:/data
+      - config:/config
+      # This plugin's source is copied in by redeploy.sh rather than
+      # bind-mounted: Docker Desktop cannot bind-mount SMB/network paths (a
+      # mount of one silently shows up EMPTY inside the container), and a copy
+      # works wherever the checkout lives.
+      - plugin_src:/plugin-src
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  db:
+  plugin_src:
+  redis:
+  data:
+  config:
